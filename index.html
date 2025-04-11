@@ -1,179 +1,206 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Samsung Products</title>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Samsung Store</title>
   <style>
-    * {
-      box-sizing: border-box;
-      font-family: 'Roboto', sans-serif;
-      margin: 0;
-      padding: 0;
-    }
-
     body {
-      background-image: url('https://images.samsung.com/is/image/samsung/assets/global/about-us/brand/logo/mo/kv-bg.jpg');
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: url('https://images.samsung.com/is/image/samsung/assets/global/about-us/brand/logo/mo/og-image.jpg') no-repeat center center fixed;
       background-size: cover;
-      color: #fff;
-      min-height: 100vh;
-      backdrop-filter: brightness(0.7);
     }
 
     header {
-      background-color: rgba(0, 0, 0, 0.8);
+      background: rgba(0, 0, 0, 0.7);
       padding: 20px;
-      text-align: center;
-    }
-
-    header h1 {
-      font-size: 2.5rem;
-    }
-
-    nav {
+      color: #fff;
       display: flex;
-      justify-content: center;
-      gap: 20px;
-      background-color: rgba(0, 0, 0, 0.9);
-      padding: 10px;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    header img {
+      height: 50px;
     }
 
     nav a {
-      color: #fff;
+      color: white;
+      margin: 0 15px;
       text-decoration: none;
       font-weight: bold;
     }
 
+    .banner {
+      text-align: center;
+      color: white;
+      padding: 100px 20px 40px;
+      background: rgba(0, 0, 0, 0.5);
+    }
+
     .filters {
-      display: flex;
-      justify-content: center;
-      gap: 20px;
+      text-align: center;
       margin: 20px;
     }
 
     .filters input,
     .filters select {
-      padding: 10px;
+      padding: 8px;
+      margin: 5px;
       border-radius: 5px;
-      border: none;
+      border: 1px solid #ccc;
     }
 
-    .content {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 20px;
+    .products {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 30px;
       padding: 20px;
     }
 
-    .card {
-      background-color: rgba(0, 0, 0, 0.6);
+    .product {
+      background: white;
       border-radius: 10px;
-      overflow: hidden;
+      width: 300px;
       padding: 15px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      transition: transform 0.3s;
     }
 
-    .card img {
+    .product:hover {
+      transform: scale(1.05);
+    }
+
+    .product img {
       width: 100%;
       border-radius: 10px;
     }
 
-    .card h2 {
-      margin-top: 10px;
-      font-size: 1.5rem;
+    .product h3 {
+      margin: 10px 0 5px;
     }
 
-    .card p {
-      font-size: 1rem;
-      margin: 10px 0;
+    .product p {
+      color: #333;
     }
 
-    .card button {
-      padding: 10px;
-      background-color: #00aced;
+    .product button {
+      background: #007aff;
+      color: white;
+      padding: 10px 15px;
       border: none;
       border-radius: 5px;
-      color: white;
-      font-weight: bold;
       cursor: pointer;
+      margin-top: 10px;
     }
 
     .video-section {
       text-align: center;
-      margin: 40px auto;
+      margin: 40px;
     }
 
-    .video-section iframe {
+    iframe {
       width: 80%;
       height: 400px;
+      max-width: 800px;
       border-radius: 10px;
     }
 
     footer {
-      background-color: rgba(0, 0, 0, 0.9);
-      padding: 20px;
+      background: #111;
+      color: white;
       text-align: center;
-      margin-top: 40px;
+      padding: 20px;
     }
   </style>
 </head>
 <body>
+
   <header>
-    <h1>Samsung Electronics</h1>
+    <img src="https://images.samsung.com/is/image/samsung/assets/global/about-us/brand/logo/mo/og-image.jpg" alt="Samsung Logo">
+    <nav>
+      <a href="#">Home</a>
+      <a href="#">Products</a>
+      <a href="#">About</a>
+      <a href="#">Contact</a>
+    </nav>
   </header>
-  <nav>
-    <a href="#">Home</a>
-    <a href="#products">Products</a>
-    <a href="#about">About</a>
-    <a href="#contact">Contact</a>
-  </nav>
+
+  <div class="banner">
+    <h1>Discover the Future with Samsung</h1>
+    <p>Innovation for a better life</p>
+  </div>
 
   <div class="filters">
-    <input type="text" placeholder="Search products...">
-    <select>
-      <option>All Categories</option>
-      <option>Smartphones</option>
-      <option>TVs</option>
-      <option>Laptops</option>
-      <option>Appliances</option>
-    </select>
-    <select>
-      <option>Sort by</option>
-      <option>Price: Low to High</option>
-      <option>Price: High to Low</option>
-      <option>Newest</option>
+    <input type="text" id="searchInput" placeholder="Search products..." onkeyup="filterProducts()">
+    <select id="sortSelect" onchange="sortProducts()">
+      <option value="default">Sort By</option>
+      <option value="name">Name A-Z</option>
     </select>
   </div>
 
-  <section class="content">
-    <div class="card">
-      <img src="https://images.samsung.com/is/image/samsung/p6pim/levant/2302/gallery/levant-galaxy-s23-s911-sm-s911bzgdmea-534917882?$650_519_PNG$" alt="Galaxy S23">
-      <h2>Galaxy S23</h2>
-      <p>Capture your world in high detail with the Galaxy S23's advanced camera and sleek design.</p>
+  <div class="products" id="productContainer">
+    <div class="product" data-name="Galaxy S23">
+      <img src="https://images.samsung.com/is/image/samsung/p6pim/in/sm-s911bzvdins/gallery/in-galaxy-s23-s911-446054-sm-s911bzvdins-534315206?$650_519_PNG$" alt="Galaxy S23">
+      <h3>Galaxy S23</h3>
+      <p>Experience next-level performance and stunning design.</p>
       <button>Buy Now</button>
     </div>
-    <div class="card">
-      <img src="https://images.samsung.com/is/image/samsung/p6pim/levant/ua65cu7000uxzn/gallery/levant-uhd-4k-tv-cu7000-ua65cu7000uxzn-534202591?$650_519_PNG$" alt="Samsung 4K TV">
-      <h2>Samsung 4K UHD TV</h2>
-      <p>Experience stunning 4K resolution and smart features for the ultimate viewing experience.</p>
-      <button>Learn More</button>
+
+    <div class="product" data-name="Samsung 4K TV">
+      <img src="https://images.samsung.com/is/image/samsung/p6pim/in/ua43au7700klxl/gallery/in-crystal-uhd-au7700-ua43au7700klxl-531564075?$650_519_PNG$" alt="Samsung 4K TV">
+      <h3>Samsung 4K TV</h3>
+      <p>Brilliant colors and crisp visuals with UHD resolution.</p>
+      <button>Buy Now</button>
     </div>
-    <div class="card">
-      <img src="https://images.samsung.com/is/image/samsung/assets/global/galaxybook2pro/images/kv/kv-gb2p-mo.jpg" alt="Galaxy Book">
-      <h2>Galaxy Book</h2>
-      <p>Powerful, lightweight laptop designed for productivity and entertainment on the go.</p>
-      <button>See Details</button>
+
+    <div class="product" data-name="Galaxy Book">
+      <img src="https://images.samsung.com/is/image/samsung/p6pim/in/np750xed-kb2in/gallery/in-galaxy-book2-np750xed-kb2in-530306636?$650_519_PNG$" alt="Galaxy Book">
+      <h3>Galaxy Book</h3>
+      <p>Lightweight performance for work and play on the go.</p>
+      <button>Buy Now</button>
     </div>
-  </section>
+  </div>
 
   <div class="video-section">
-    <h2>Explore Samsung Innovation</h2>
-    <iframe src="https://www.youtube.com/embed/FgdxyQbnTV4" frameborder="0" allowfullscreen></iframe>
+    <h2>Watch Our Latest Tech</h2>
+    <iframe src="https://www.youtube.com/embed/Ry7q-ybsl-U" frameborder="0" allowfullscreen></iframe>
   </div>
 
   <footer>
-    <p>&copy; 2025 Samsung Electronics. All rights reserved.</p>
+    &copy; 2025 Samsung Electronics. All Rights Reserved.
   </footer>
+
+  <script>
+    function filterProducts() {
+      const input = document.getElementById("searchInput").value.toLowerCase();
+      const products = document.querySelectorAll(".product");
+
+      products.forEach(product => {
+        const name = product.getAttribute("data-name").toLowerCase();
+        if (name.includes(input)) {
+          product.style.display = "block";
+        } else {
+          product.style.display = "none";
+        }
+      });
+    }
+
+    function sortProducts() {
+      const select = document.getElementById("sortSelect").value;
+      const container = document.getElementById("productContainer");
+      const products = Array.from(container.getElementsByClassName("product"));
+
+      if (select === "name") {
+        products.sort((a, b) => {
+          return a.getAttribute("data-name").localeCompare(b.getAttribute("data-name"));
+        });
+        products.forEach(product => container.appendChild(product));
+      }
+    }
+  </script>
+
 </body>
 </html>
