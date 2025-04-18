@@ -1,204 +1,165 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Samsung Store</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: linear-gradient(to bottom right, #0f0f0f, #1a1a1a);
-      color: #fff;
-    }
-
-    header {
-      background: #000;
-      padding: 20px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    header img {
-      height: 50px;
-    }
-
-    nav a {
-      color: white;
-      margin: 0 15px;
-      text-decoration: none;
-      font-weight: bold;
-    }
-
-    .banner {
-      text-align: center;
-      padding: 80px 20px 40px;
-      background: #111;
-    }
-
-    .filters {
-      text-align: center;
-      margin: 20px;
-    }
-
-    .filters input,
-    .filters select {
-      padding: 8px;
-      margin: 5px;
-      border-radius: 5px;
-      border: 1px solid #ccc;
-    }
-
-    .products {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 30px;
-      padding: 20px;
-    }
-
-    .product {
-      background: #222;
-      border-radius: 10px;
-      width: 300px;
-      padding: 15px;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.4);
-      transition: transform 0.3s;
-    }
-
-    .product:hover {
-      transform: scale(1.05);
-    }
-
-    .product img {
-      width: 100%;
-      border-radius: 10px;
-    }
-
-    .product h3 {
-      margin: 10px 0 5px;
-    }
-
-    .product p {
-      color: #ccc;
-    }
-
-    .product button {
-      background: #007aff;
-      color: white;
-      padding: 10px 15px;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      margin-top: 10px;
-    }
-
-    .video-section {
-      text-align: center;
-      margin: 40px;
-    }
-
-    iframe {
-      width: 80%;
-      height: 400px;
-      max-width: 800px;
-      border-radius: 10px;
-    }
-
-    footer {
-      background: #000;
-      color: white;
-      text-align: center;
-      padding: 20px;
-    }
-  </style>
-</head>
-<body>
-
-  <header>
-    <img src="https://1000logos.net/wp-content/uploads/2017/06/Samsung-Logo-768x432.png" alt="Samsung Logo">
-    <nav>
-      <a href="#">Home</a>
-      <a href="#">Products</a>
-      <a href="#">About</a>
-      <a href="#">Contact</a>
-    </nav>
-  </header>
-
-  <div class="banner">
-    <h1>Discover the Future with Samsung</h1>
-    <p>Innovation for a better life</p>
-  </div>
-
-  <div class="filters">
-    <input type="text" id="searchInput" placeholder="Search products..." onkeyup="filterProducts()">
-    <select id="sortSelect" onchange="sortProducts()">
-      <option value="default">Sort By</option>
-      <option value="name">Name A-Z</option>
-    </select>
-  </div>
-
-  <div class="products" id="productContainer">
-    <div class="product" data-name="Galaxy S23">
-      <img src="https://images.unsplash.com/photo-1675122923652-ffad03e2f9f4?auto=format&fit=crop&w=500&q=80" alt="Galaxy S23">
-      <h3>Galaxy S23</h3>
-      <p>Next-level performance and stunning design.</p>
-      <button>Buy Now</button>
-    </div>
-
-    <div class="product" data-name="Samsung 4K TV">
-      <img src="https://images.unsplash.com/photo-1587829741301-dc798b84f0b4?auto=format&fit=crop&w=500&q=80" alt="Samsung 4K TV">
-      <h3>Samsung 4K TV</h3>
-      <p>Vivid colors and crystal-clear detail in 4K UHD.</p>
-      <button>Buy Now</button>
-    </div>
-
-    <div class="product" data-name="Galaxy Book">
-      <img src="https://images.unsplash.com/photo-1603791440384-56cd371ee9a7?auto=format&fit=crop&w=500&q=80" alt="Galaxy Book">
-      <h3>Galaxy Book</h3>
-      <p>Portable power for work and play.</p>
-      <button>Buy Now</button>
-    </div>
-  </div>
-
-  <div class="video-section">
-    <h2>Watch Samsung Innovation in Action</h2>
-    <iframe src="https://www.youtube.com/embed/Ry7q-ybsl-U" frameborder="0" allowfullscreen></iframe>
-  </div>
-
-  <footer>
-    &copy; 2025 Samsung Electronics. All Rights Reserved.
-  </footer>
-
-  <script>
-    function filterProducts() {
-      const input = document.getElementById("searchInput").value.toLowerCase();
-      const products = document.querySelectorAll(".product");
-
-      products.forEach(product => {
-        const name = product.getAttribute("data-name").toLowerCase();
-        if (name.includes(input)) {
-          product.style.display = "block";
-        } else {
-          product.style.display = "none";
+  <html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Samsung Products</title>
+      <style>
+        /* CSS styles */
+        * {
+          margin: 0;
+          padding: 0;
+          box-sizing: border-box;
         }
-      });
-    }
 
-    function sortProducts() {
-      const select = document.getElementById("sortSelect").value;
-      const container = document.getElementById("productContainer");
-      const products = Array.from(container.getElementsByClassName("product"));
+        body {
+          font-family: Arial, sans-serif;
+          line-height: 1.6;
+          color: #333;
+        }
 
-      if (select === "name") {
-        products.sort((a, b) => {
-          return a.getAttribute("data-name").localeCompare(b.getAttribute("data-name"));
-        });
-        products.forEach(product => container.appendChild(product));
-      }
-    }
-  </script>
+        .header {
+          background-image: url('https://cdn.samsung.com/samsung-global/galaxy/galaxy-s23/samsung-s23-dark-mode-hero.png');
+          height: 100vh;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          text-align: center;
+          color: white;
+        }
 
-</body>
-</html>
+        .logo {
+          width: 200px;
+          height: auto;
+          margin-bottom: 20px;
+        }
+
+        nav {
+          background-color: #f5f5f5;
+          padding: 20px;
+          display: flex;
+          justify-content: space-around;
+        }
+
+        nav a {
+          text-decoration: none;
+          color: #333;
+          font-weight: bold;
+          padding: 10px;
+        }
+
+        .product-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+          gap: 20px;
+          padding: 20px;
+        }
+
+        .product-card {
+          background-color: white;
+          border-radius: 10px;
+          padding: 20px;
+          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .product-image {
+          width: 100%;
+          height: 200px;
+          object-fit: cover;
+          border-radius: 5px;
+        }
+
+        .buy-button {
+          background-color: #007bff;
+          color: white;
+          padding: 10px 20px;
+          border: none;
+          border-radius: 5px;
+          cursor: pointer;
+          font-weight: bold;
+        }
+
+        .video-container {
+          position: relative;
+          padding-bottom: 56.25%; /* 16:9 */
+          height: 0;
+          overflow: hidden;
+        }
+
+        .video-container iframe {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+        }
+
+        footer {
+          background-color: #333;
+          color: white;
+          text-align: center;
+          padding: 20px;
+          margin-top: 20px;
+        }
+      </style>
+    </head>
+    <body>
+      <header class="header">
+        <img src="https://cdn.samsung.com/samsung-global/galaxy/galaxy-s23/samsung-s23-dark-mode-hero.png" alt="Samsung Logo" class="logo">
+        <h1>Welcome to Samsung Products</h1>
+      </header>
+
+      <nav>
+        <a href="#home">Home</a>
+        <a href="#products">Products</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+      </nav>
+
+      <main class="product-grid">
+        <!-- Product 1 -->
+        <div class="product-card">
+          <img src="https://cdn.samsung.com/samsung-global/galaxy/galaxy-s23/samsung-s23-dark-mode-hero.png" 
+               alt="Galaxy S23 Pro" 
+               class="product-image">
+          <h2>Galaxy S23 Pro</h2>
+          <p>A revolutionary phone that combines the best features of today's smartphones with a future-forward design.</p>
+          <button class="buy-button">Buy Now</button>
+        </div>
+
+        <!-- Product 2 -->
+        <div class="product-card">
+          <img src="https://cdn.samsung.com/samsung-global/galaxy/galaxy-s23/samsung-s23-dark-mode-hero.png" 
+               alt="Samsung 4K TV" 
+               class="product-image">
+          <h2>Samsung 4K TV</h2>
+          <p>Experience 4K resolution in crystal clarity with our premium LED TVs.</p>
+          <button class="buy-button">Buy Now</button>
+        </div>
+
+        <!-- Product 3 -->
+        <div class="product-card">
+          <img src="https://cdn.samsung.com/samsung-global/galaxy/galaxy-s23/samsung-s23-dark-mode-hero.png" 
+               alt="Galaxy Book" 
+               class="product-image">
+          <h2>Galaxy Book</h2>
+          <p>The perfect portable device for productivity and creativity.</p>
+          <button class="buy-button">Buy Now</button>
+        </div>
+      </main>
+
+      <section class="video-container">
+        <iframe 
+          src="https://www.youtube.com/embed/<YOUR-VIDEO-ID>" 
+          title="Samsung Product Tour" 
+          frameborder="0" 
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+          allowfullscreen>
+        </iframe>
+      </section>
+
+      <footer>
+        <p>&copy; 2023 Samsung. All rights reserved.</p>
+      </footer>
+    </body>
+  </html>
